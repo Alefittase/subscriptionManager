@@ -35,4 +35,9 @@ public class SubscriptionManager {
         return subscriptionsOUT;
     }
 
+    @Override
+    public String toString() {
+        return "Customers: " + customers.toString() + "\nServices: " + services.toString() + "\nsubscriptions: " + subscriptions.toString() + "\n";
+    }
+    
 }
