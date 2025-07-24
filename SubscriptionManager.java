@@ -4,72 +4,50 @@ public class SubscriptionManager {
     private ArrayList<Customer> customers;
     private ArrayList<Service> services;
     private ArrayList<Subscription> subscriptions;
-    //constructor
+
     public SubscriptionManager() {
+        this.customers = new ArrayList<>();
+        this.services = new ArrayList<>();
+        this.subscriptions = new ArrayList<>();
     }
     public SubscriptionManager(ArrayList<Customer> customers, ArrayList<Service> services, ArrayList<Subscription> subscriptions) {
-        this.customers = customers;
-        this.services = services;
-        this.subscriptions = subscriptions;
+        this.customers = new ArrayList<>(customers);
+        this.services = new ArrayList<>(services);
+        this.subscriptions = new ArrayList<>(subscriptions);
     }
-    //setter-getter methods
-    public void setCustomers(ArrayList<Customer> customers) {
-        this.customers = customers;
-    }
-    public void setServices(ArrayList<Service> services) {
-        this.services = services;
-    }
-    public void setSubscriptions(ArrayList<Subscription> subscriptions) {
-        this.subscriptions = subscriptions;
-    }
+
     public ArrayList<Customer> getCustomers() {
-        ArrayList<Customer> customersOUT = customers;
-        return customersOUT;
+        return new ArrayList<>(customers);
     }
     public ArrayList<Service> getServices() {
-        ArrayList<Service> servicesOUT = services;
-        return servicesOUT;
+        return new ArrayList<>(services);
     }
     public ArrayList<Subscription> getSubscriptions() {
-        ArrayList<Subscription> subscriptionsOUT = subscriptions;
-        return subscriptionsOUT;
+        return new ArrayList<>(subscriptions);
+    }
+    public void setCustomers(ArrayList<Customer> customers) {
+        this.customers = new ArrayList<>(customers);
+    }
+    public void setServices(ArrayList<Service> services) {
+        this.services = new ArrayList<>(services);
+    }
+    public void setSubscriptions(ArrayList<Subscription> subscriptions) {
+        this.subscriptions = new ArrayList<>(subscriptions);
     }
 
     @Override
     public String toString() {
-        return "Customers: " + customers.toString() + "\nServices: " + services.toString() + "\nsubscriptions: " + subscriptions.toString() + "\n";
+        return "Customers: " + customers + "\nServices: " + services + "\nSubscriptions: " + subscriptions + "\n";
     }
-    
-    public void addCustomer(String name, String email){
-        int id;
-        if(customers.isEmpty()) id = 1;
-        else id = customers.getLast().getId()+1;
-        Customer c = new Customer(id, name, email);
-        customers.add(c);
+
+    public void addCustomer(String name, String email) {
+        int nextId = customers.stream()
+                             .mapToInt(Customer::getId)
+                             .max()
+                             .orElse(0) + 1;
+        customers.add(new Customer(nextId, name, email));
     }
     public void addService(String name, String description) {
-        Service s = new Service(name, description);
-        services.add(s);
+        services.add(new Service(name, description));
     }
-    public void addSubscription(Customer customer, Service service){
-        Subscription sub = new Subscription();
-        boolean fc=false, fs=false;
-        for(Customer c:customers){
-            if(c.equals(customer)){
-                sub.setCustomer(c);
-                fc=true;
-            }
-        }
-        for(Service s:services){
-            if(s.equals(service)){
-                sub.setService(s);
-                fs=true;
-            }
-        }
-        if(fc && fs){
-            subscriptions.add(sub);
-        }
-    }
-
-
 }
