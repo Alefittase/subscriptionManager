@@ -8,6 +8,8 @@ public class Subscription {
     private boolean state;
     //constructor
     public Subscription() {
+        startDate = Date.from(null);
+        state = true;
     }
     public Subscription(Customer customer, Service service, Date startDate, boolean state) {
         this.customer = customer;
