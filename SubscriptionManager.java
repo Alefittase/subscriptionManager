@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class SubscriptionManager {
     private ArrayList<Customer> customers;
@@ -82,4 +83,17 @@ public class SubscriptionManager {
             .ifPresent(s -> s.setState(false));
     }
 
+    public ArrayList<Subscription> getActiveSubscriptions() {
+        return subscriptions.stream()
+                            .filter(Subscription::getState)
+                            .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Subscription> getActiveSubscriptions(Customer customer) {
+        return subscriptions.stream()
+                            .filter(sub -> 
+                                sub.getState() && 
+                                sub.getCustomer().equals(customer))
+                            .collect(Collectors.toCollection(ArrayList::new));
+    }
 }
