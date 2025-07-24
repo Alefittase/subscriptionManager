@@ -1,0 +1,24 @@
+public class Service {
+    private String name;
+    private String description;
+    //constructor
+    public Service() {
+    }
+    public Service(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+    //setter-getter methods
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getDescription() {
+        return description;
+    }
+}
