@@ -50,4 +50,36 @@ public class SubscriptionManager {
     public void addService(String name, String description) {
         services.add(new Service(name, description));
     }
+
+    public void addSubscription(Customer customer, Service service) {
+        Customer managedCustomer = customers.stream()
+                                          .filter(c -> c.equals(customer))
+                                          .findFirst()
+                                          .orElse(null);        
+        Service managedService = services.stream()
+                                       .filter(s -> s.equals(service))
+                                       .findFirst()
+                                       .orElse(null);
+        
+        if (managedCustomer != null && managedService != null) {
+            boolean exists = subscriptions.stream().anyMatch(sub -> 
+                sub.getCustomer().equals(managedCustomer) && 
+                sub.getService().equals(managedService));            
+            if (!exists) {
+                Subscription sub = new Subscription();
+                sub.setCustomer(managedCustomer);
+                sub.setService(managedService);
+                sub.setState(true);
+                subscriptions.add(sub);
+            }
+        }
+    }
+
+    public void deactiveSubscription(Subscription sub) {
+        subscriptions.stream()
+            .filter(s -> s.equals(sub))
+            .findFirst()
+            .ifPresent(s -> s.setState(false));
+    }
+
 }
