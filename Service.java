@@ -21,4 +21,9 @@ public class Service {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\nDescription: " + description + "\n";
+    }
 }
