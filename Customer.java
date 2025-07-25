@@ -1,10 +1,9 @@
 public class Customer {
-    private final int id;
+    private int id;
     private String email;
     private String name;
     //costructors
     public Customer() {
-        this.id = 0;
     }
     public Customer(int id, String name, String email) {
         this.id = id;
